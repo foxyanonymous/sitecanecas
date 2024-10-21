@@ -104,7 +104,6 @@ class AdminController extends Controller
         return redirect('/paineladmin')->with('error', 'Usuário não encontrado.');
     }
 
-    // Sair da sessão
     public function logout()
     {
         Auth::guard('admin')->logout();
@@ -112,6 +111,5 @@ class AdminController extends Controller
         session()->regenerateToken(); // Gera um novo token de sessão
         return redirect('/'); // Redireciona para a página inicial
     }
-
 
 }
