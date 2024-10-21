@@ -66,6 +66,13 @@ Route::post('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 
+Route::get('/perfil', function () {
+    return view('layout.perfil'); // Rota para a view de perfil
+})->middleware('auth'); // Garante que apenas usuários autenticados possam acessar
+
+
+
+
 /* ROTA CARRINHO */
 Route::get('/carrinho', function () {
     return view('layout.carrinho');

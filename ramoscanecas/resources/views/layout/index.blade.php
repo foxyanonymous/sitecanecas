@@ -98,9 +98,29 @@
                                 <i class="fas fa-shopping-cart fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="/login" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
+
+                            <!-- LOGIN -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user fa-2x"></i>
+                                </a>
+                                <div class="dropdown-menu m-0 bg-secondary rounded-0" aria-labelledby="userDropdown">
+                                    @if(Auth::check())
+                                        <a class="dropdown-item" href="/perfil">Meu perfil</a>
+                                        <div class="dropdown-divider"></div>
+                                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">Sair</button>
+                                        </form>
+                                    @else
+                                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                                        <a class="dropdown-item" href="{{ route('cadastrar') }}">Cadastrar</a>
+                                    @endif
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
                 </nav>
