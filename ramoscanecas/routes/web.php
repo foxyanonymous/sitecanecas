@@ -42,10 +42,6 @@ Route::get('/politicas', function () {
     return view('layout.politicas');
 });
 
-Route::get('/categorias', function () {
-    return view('layout.categorias');
-});
-
 Route::get('/detalhe', function () {
     return view('layout.detalhe');
 });
@@ -72,7 +68,6 @@ Route::get('/perfil', function () {
 
 // Rota para atualizar o perfil do usuário
 Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
-
 
 
 /* ROTA CARRINHO */

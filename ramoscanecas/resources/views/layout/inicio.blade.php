@@ -84,26 +84,31 @@
                                     <div id="tab-1" class="tab-pane fade show p-0 active">
                                         <div class="row g-4">
                                             <!-- Início dos itens -->
-                                            @foreach($produtos as $produto)
-                                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                                                <div class="rounded position-relative fruite-item h-100">
-                                                    <div class="fruite-img position-relative">
-                                                        <img src="{{ asset($produto->imagem) }}" class="img-fluid w-100 rounded-top" alt="{{ $produto->nome }}">
-                                                        <span class="position-absolute top-0 start-0 bg-dark text-white p-2" style="opacity: 0.8;">
-                                                            {{ $produto->categoria->nome }}
-                                                        </span> <!-- Exibe a categoria sobre a imagem -->
-                                                    </div>
-                                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                        <h4>{{ $produto->nome }}</h4>
-                                                        <div class="d-flex justify-content-between flex-wrap">
-                                                            <p class="text-dark fs-5 fw-bold mb-1 mx-auto">R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
-                                                            <a href="#" class="btn border azulclaro rounded-pill px-3 branco mx-auto">
-                                                                <i class="fas fa-shopping-cart me-2 azulescuro"></i> Adicionar ao Carrinho
-                                                            </a>
+                                            @php
+                                                // Limitar a exibição a 8 produtos
+                                                $produtosVisiveis = $produtos->take(8);
+                                            @endphp
+
+                                            @foreach($produtosVisiveis as $produto)
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="rounded position-relative fruite-item h-100">
+                                                        <div class="fruite-img position-relative">
+                                                            <img src="{{ asset($produto->imagem) }}" class="img-fluid w-100 rounded-top" alt="{{ $produto->nome }}">
+                                                            <span class="position-absolute top-0 start-0 bg-dark text-white p-2" style="opacity: 0.8;">
+                                                                {{ $produto->categoria->nome }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                            <h4>{{ $produto->nome }}</h4>
+                                                            <div class="d-flex justify-content-between flex-wrap">
+                                                                <p class="text-dark fs-5 fw-bold mb-1 mx-auto">R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
+                                                                <a href="#" class="btn border azulclaro rounded-pill px-3 branco mx-auto">
+                                                                    <i class="fas fa-shopping-cart me-2 azulescuro"></i> Adicionar ao Carrinho
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
@@ -117,7 +122,6 @@
 
 
 
-
             <!-- Featurs Start -->
             <div class="container-fluid service py-5">
                 <div class="centralizar">
@@ -125,7 +129,12 @@
                 </div>
                 <div class="container py-5">
                     <div class="row g-4 justify-content-center">
-                        @foreach ($categorias as $categoria)
+                        @php
+                            // Limitar a exibição a 8 categorias
+                            $categoriasVisiveis = $categorias->take(6);
+                        @endphp
+
+                        @foreach ($categoriasVisiveis as $categoria)
                             <div class="col-md-6 col-lg-4">
                                 <a href="{{ url($categoria->caminho) }}">
                                     <div class="service-item azulclaro rounded border border-secondary">
