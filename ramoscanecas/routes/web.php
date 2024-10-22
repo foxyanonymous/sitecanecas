@@ -70,6 +70,8 @@ Route::get('/perfil', function () {
     return view('layout.perfil'); // Rota para a view de perfil
 })->middleware('auth'); // Garante que apenas usuários autenticados possam acessar
 
+// Rota para atualizar o perfil do usuário
+Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
 
 
 

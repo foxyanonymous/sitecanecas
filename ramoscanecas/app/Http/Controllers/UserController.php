@@ -52,15 +52,29 @@ class UserController extends Controller
     // Método para atualizar um usuário
     public function update(Request $request, $id)
     {
+        // Validação de dados de entrada
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
         $user = User::findOrFail($id);
+
+        // Verifique se o usuário atual é um administrador
+        if (!Auth::guard('admin')->check()) {
+            // Para usuários não administradores, verifique a senha atual
+            $request->validate([
+                'current_password' => 'required|string',
+            ]);
+
+            // Verifica se a senha atual está correta
+            if (!Hash::check($request->current_password, $user->password)) {
+                return redirect()->back()->withErrors(['current_password' => 'A senha atual está incorreta.']);
+            }
+        }
+
+        // Atualize os dados do usuário
         $user->name = $request->name;
-        $user->email = $request->email;
 
         if ($request->password) {
             $user->password = Hash::make($request->password);
@@ -70,6 +84,7 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Usuário atualizado com sucesso!');
     }
+
 
     // Método para deletar um usuário
     public function destroy($id)
