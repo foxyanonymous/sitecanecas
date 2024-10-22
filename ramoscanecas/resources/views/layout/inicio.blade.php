@@ -111,6 +111,11 @@
                                                 </div>
                                             @endforeach
                                         </div>
+                                        <div class="mt-4 text-end">
+                                            <a href="{{ url('/produtos') }}" class="btn btn-outline-azulclaro rounded-circle py-3 px-4">
+                                                Ver todos
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -148,6 +153,11 @@
                                 </a>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="mt-4 text-end">
+                        <a href="{{ url('/categorias') }}" class="btn btn-outline-azulclaro rounded-circle py-3 px-4">
+                            Ver todos
+                        </a>
                     </div>
                 </div>
             </div>

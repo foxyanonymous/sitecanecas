@@ -41,6 +41,8 @@
     --bs-azul: #053f74;
     .bg-azul{background-color:#053f74 !important}
     .bg-azulclaro{background-color:#00cfff !important}
+
+    .btn-outline-azulclaro{color:#00ceff;border-color:#053f74}
     
 
 
