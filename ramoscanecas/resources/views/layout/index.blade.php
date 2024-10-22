@@ -28,6 +28,8 @@
 
         <!-- Template Stylesheet -->
         <link href="/layout/css/style.css" rel="stylesheet">
+
+        
     </head>
 
     <body>
@@ -106,8 +108,14 @@
                                 </a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0" aria-labelledby="userDropdown">
                                     @if(Auth::check())
+                                        <div class="dropdown-header text-black fw-bold" style="font-size: 1.0rem; color: #00ceff;">
+                                            <!-- Exibe o primeiro nome do usuário em destaque -->
+                                            Olá, {{ explode(' ', Auth::user()->name)[0] }}
+                                        </div>
                                         <a class="dropdown-item" href="/perfil">Meu perfil</a>
-                                        <div class="dropdown-divider"></div>
+                                        
+                                        <a class="dropdown-item" href="/compras">Minhas compras</a>
+                                        
                                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                             @csrf
                                             <button type="submit" class="dropdown-item">Sair</button>
