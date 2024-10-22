@@ -28,13 +28,17 @@ Route::get('/sobrenos', function () {
     return view('layout.sobrenos');
 });
 
-Route::get('/error', function () {
-    return view('layout.error');
+Route::get('/todascategorias', function () {
+    return view('layout.todascategorias');
 });
 
-// Rota error redirecionar
-Route::fallback(function () {
-    return redirect('/error');
+Route::get('/todosprodutos', function () {
+    return view('layout.todosprodutos');
+});
+
+
+Route::get('/error', function () {
+    return view('layout.error');
 });
 
 
@@ -118,3 +122,11 @@ Route::prefix('painelprodutos')->group(function () {
 // Rota dinâmica para exibir a categoria com seus produtos
 Route::get('/{caminho}', [CategoriaController::class, 'show']);
 
+
+
+
+
+// Rota error redirecionar
+Route::fallback(function () {
+    return redirect('/error');
+});

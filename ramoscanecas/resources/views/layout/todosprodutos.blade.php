@@ -4,7 +4,7 @@
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6">{{ $categoria->nome }}</h1>
+    <h1 class="text-center text-white display-6">{{ isset($categoria) ? $categoria->nome : 'Todos os Produtos' }}</h1>
 </div>
 <!-- Single Page Header End -->
 
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="row g-4">
                     <div class="col-xl-3">
-                        <div class="input-group w-100 mx-auto d-flex mb-4">
+                        <div class="input-group w-100 mx-auto d-flex mb-4"> <!-- Margem inferior para espaçamento -->
                             <input type="search" class="form-control p-3" placeholder="Pesquisar por..." aria-describedby="search-icon-1">
                             <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                         </div>
@@ -33,17 +33,18 @@
                             @endforeach
                         </ul>
                     </div>
+
                     <!-- Início dos itens de produtos -->
                     <div class="col-lg-9"> <!-- Coluna para os produtos -->
                         <div class="row g-4">
                             @foreach($produtos as $produto)
                                 <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded border border-secondary fruite-item h-100 d-flex flex-column" style="min-height: 350px;"> <!-- Aumentando a altura mínima -->
+                                    <div class="rounded border border-secondary fruite-item h-100 d-flex flex-column" style="min-height: 350px;"> <!-- Contorno do produto e altura mínima -->
                                         <div class="fruite-img position-relative flex-grow-1">
                                             <img src="{{ asset($produto->imagem) }}" class="img-fluid w-100 rounded-top" alt="{{ $produto->nome }}" style="height: 200px; object-fit: cover;"> <!-- Ajustando a imagem -->
                                             <span class="position-absolute top-0 start-0 bg-dark text-white p-2" style="opacity: 0.8;">
                                                 {{ $produto->categoria->nome }}
-                                            </span> <!-- Exibe a categoria sobre a imagem -->
+                                            </span>
                                         </div>
                                         <div class="p-4 border-top-0 rounded-bottom text-center"> <!-- Centralizando o texto -->
                                             <h4 class="mb-3">{{ $produto->nome }}</h4> <!-- Margem inferior para espaçamento -->

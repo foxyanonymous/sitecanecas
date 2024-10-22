@@ -88,7 +88,6 @@
                                                 // Limitar a exibição a 8 produtos
                                                 $produtosVisiveis = $produtos->take(8);
                                             @endphp
-
                                             @foreach($produtosVisiveis as $produto)
                                                 <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                                                     <div class="rounded position-relative fruite-item h-100">
@@ -112,7 +111,7 @@
                                             @endforeach
                                         </div>
                                         <div class="mt-4 text-end">
-                                            <a href="{{ url('/produtos') }}" class="btn btn-outline-azulclaro rounded-circle py-3 px-4">
+                                            <a href="{{ url('/todosprodutos') }}" class="btn btn-outline-azulclaro rounded-circle py-3 px-4">
                                                 Ver todos
                                             </a>
                                         </div>
@@ -155,7 +154,7 @@
                         @endforeach
                     </div>
                     <div class="mt-4 text-end">
-                        <a href="{{ url('/categorias') }}" class="btn btn-outline-azulclaro rounded-circle py-3 px-4">
+                        <a href="{{ url('/todascategorias') }}" class="btn btn-outline-azulclaro rounded-circle py-3 px-4">
                             Ver todos
                         </a>
                     </div>
