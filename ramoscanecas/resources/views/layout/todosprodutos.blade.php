@@ -21,6 +21,13 @@
                 </div>
                 <!-- Exibe as categorias em formato de lista -->
                 <ul class="list-unstyled fruite-categorie">
+                    <!-- Categoria manual para Todos Produtos -->
+                    <li class="mb-3">
+                        <div class="d-flex justify-content-between fruite-name">
+                            <a href="{{ url('/todosprodutos') }}"><i class="fas fa-mug-hot me-2"></i>Todos</a>
+                            <span>({{ $produtos->count() }})</span>
+                        </div>
+                    </li>
                     @foreach($categorias as $categoria) <!-- Loop através das categorias -->
                         <li class="mb-3"> <!-- Margem inferior para espaçamento -->
                             <div class="d-flex justify-content-between fruite-name">
