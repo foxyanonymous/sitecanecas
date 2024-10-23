@@ -36,7 +36,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('carrinho'); // Redirecionar para a view layout.carrinho após login
+            return redirect()->route('inicio'); // Redirecionar para a view layout.inicio após login
         }
 
         return back()->withErrors(['email' => 'As credenciais não correspondem aos nossos registros.']);

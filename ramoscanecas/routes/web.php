@@ -74,10 +74,10 @@ Route::get('/perfil', function () {
 Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
 
 
-/* ROTA CARRINHO */
-Route::get('/carrinho', function () {
-    return view('layout.carrinho');
-})->name('carrinho');
+/* ROTA DEPOIS LOGIN */
+Route::get('/', function () {
+    return view('layout.inicio');
+})->name('inicio');
 
 /* ADMINISTRADOR */
 Route::get('/loginadmin', [AdminController::class, 'showLoginForm'])->name('admin.login');
