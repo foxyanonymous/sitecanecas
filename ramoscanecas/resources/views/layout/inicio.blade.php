@@ -73,7 +73,7 @@
             <!-- Featurs Section End -->
 
 
-            <!-- Fruits Shop Start-->
+            <!-- Fruits Shop Start -->
             <div class="container-fluid fruite py-3">
                 <div class="container py-5">
                     <div class="tab-class text-center">
@@ -82,34 +82,42 @@
                                 <h1 class="display-5 mb-1 text-dark">Canecas Personalizadas<br><br></h1>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane fade show p-0 active">
-                                        <div class="row g-4">
-                                            <!-- Início dos itens -->
-                                            @php
-                                                // Limitar a exibição a 8 produtos
-                                                $produtosVisiveis = $produtos->take(8);
-                                            @endphp
-                                            @foreach($produtosVisiveis as $produto)
-                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                                                    <div class="rounded position-relative fruite-item h-100">
-                                                        <div class="fruite-img position-relative">
-                                                            <img src="{{ asset($produto->imagem) }}" class="img-fluid w-100 rounded-top" alt="{{ $produto->nome }}">
-                                                            <span class="position-absolute top-0 start-0 bg-dark text-white p-2" style="opacity: 0.8;">
-                                                                {{ $produto->categoria->nome }}
-                                                            </span>
-                                                        </div>
-                                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                            <h4>{{ $produto->nome }}</h4>
-                                                            <div class="d-flex justify-content-between flex-wrap">
-                                                                <p class="text-dark fs-5 fw-bold mb-1 mx-auto">R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
-                                                                <a href="#" class="btn border azulclaro rounded-pill px-3 branco mx-auto">
-                                                                    <i class="fas fa-shopping-cart me-2 azulescuro"></i> Adicionar ao Carrinho
-                                                                </a>
+                                    <div class="row g-4">
+                                        @php
+                                            // Limitar a exibição a 8 produtos
+                                            $produtosVisiveis = $produtos->take(8);
+                                        @endphp
+                                        @foreach($produtosVisiveis as $produto)
+                                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                                <div class="border border-secondary rounded position-relative fruite-item h-100 d-flex flex-column">
+                                                    <div class="fruite-img position-relative flex-grow-1">
+                                                        <img src="{{ asset($produto->imagem) }}" class="img-fluid w-100 rounded-top" alt="{{ $produto->nome }}">
+                                                        <span class="position-absolute top-0 start-0 bg-dark text-white p-2" style="opacity: 0.8;">
+                                                            {{ $produto->categoria->nome }}
+                                                        </span>
+                                                    </div>
+                                                    <div class="p-4 border-top-0 rounded-bottom">
+                                                        <h4 class="text-center text-truncate" style="overflow: hidden; white-space: nowrap;">{{ $produto->nome }}</h4>
+                                                        <div class="d-flex justify-content-center flex-wrap">
+                                                            <p class="text-dark fs-5 fw-bold mb-1">R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
+                                                            <div class="d-flex justify-content-center w-100">
+                                                                <form action="{{ route('adicionar.carrinho') }}" method="POST" class="add-to-cart-form">
+                                                                    @csrf
+                                                                    <input type="hidden" name="product_id" value="{{ $produto->id }}">
+                                                                    <input type="hidden" name="quantity" value="1">
+                                                                    <button type="submit" class="btn border azulclaro rounded-pill px-3 branco">
+                                                                        <i class="fas fa-shopping-cart me-2 azulescuro"></i> Adicionar ao Carrinho
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endforeach
-                                        </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+
                                         <div class="mt-4 text-end">
                                             <a href="{{ url('/todosprodutos') }}" class="btn btn-outline-azulclaro rounded-circle py-3 px-4">
                                                 Ver todos
@@ -122,7 +130,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Fruits Shop End-->
+            <!-- Fruits Shop End -->
+
 
 
 

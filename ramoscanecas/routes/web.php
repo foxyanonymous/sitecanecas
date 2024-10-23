@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Models\Categoria;
 use App\Http\Controllers\PesquisarController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\CartController;
 
 
 Route::get('/', function () {
@@ -58,6 +59,13 @@ Route::get('/login', function () {
 Route::get('/cadastrar', function () {
     return view('layout.cadastrar');
 })->name('cadastrar');
+
+//carrinho
+Route::get('/carrinho', [CartController::class, 'index'])->name('carrinho');
+Route::post('/carrinho/adicionar', [CartController::class, 'addToCart'])->name('adicionar.carrinho');
+Route::post('/carrinho/atualizar', [CartController::class, 'updateCart'])->name('atualizar.carrinho');
+Route::post('/carrinho/remover/{id}', [CartController::class, 'removeFromCart'])->name('remover.carrinho');
+
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/cadastrar', [AuthController::class, 'cadastrar'])->name('cadastrar.post');
@@ -121,6 +129,7 @@ Route::prefix('painelprodutos')->group(function () {
 
 // Rota dinâmica para exibir a categoria com seus produtos
 Route::get('/{caminho}', [CategoriaController::class, 'show']);
+
 
 
 

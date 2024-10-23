@@ -98,7 +98,11 @@
                             <button class="btn-search btn border topoazulescuro btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
                             <a href="/carrinho" class="position-relative me-4 my-auto">
                                 <i class="fas fa-shopping-cart fa-2x"></i>
-                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                    <span class="shopping-cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
+                                        {{ session('cart') ? count(session('cart')) : 0 }}
+                                    </span>
+
+                                </i>
                             </a>
 
                             <!-- LOGIN -->
@@ -234,9 +238,91 @@
 
     <!-- Template Javascript -->
     <script src="layout/js/main.js"></script>
-    </body>
 
     <!-- barra lateral celular -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    
+    <!-- Carrinho -->
+    <script>
+        let cart = [];
+
+        function addToCart(productId, productName, productPrice) {
+            const existingProduct = cart.find(item => item.id === productId);
+            if (existingProduct) {
+                existingProduct.quantity++;
+            } else {
+                cart.push({ id: productId, name: productName, price: productPrice, quantity: 1 });
+            }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            // Lógica para atualizar a visualização do carrinho, se necessário
+            console.log(cart);
+        }
+    </script>
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.add-to-cart-form').on('submit', function(e) {
+                e.preventDefault(); // Impede o envio normal do formulário
+                var form = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(response) {
+                        // Atualize o ícone do carrinho aqui
+                        let cartCount = response.cartCount; // Supondo que você retorne isso do controller
+                        $('.shopping-cart-count').text(cartCount);
+                    },
+                    error: function() {
+                        console.error('Erro ao adicionar produto ao carrinho.'); // Log de erro no console
+                    }
+                });
+            });
+
+            // Para a atualização da quantidade
+            $('.quantity-input').on('input', function() {
+                let quantity = $(this).val();
+                let price = $(this).closest('tr').find('.total-price').data('price');
+                let totalPrice = price * quantity;
+                $(this).closest('tr').find('.total-price').text('R$ ' + totalPrice.toFixed(2).replace('.', ','));
+
+                // Atualiza total geral do carrinho
+                updateCartTotal();
+
+                // Envia a atualização ao servidor via AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).closest('form').attr('action'),
+                    data: $(this).closest('form').serialize(),
+                    success: function(response) {
+                        // Opcional: processar resposta do servidor
+                    },
+                    error: function() {
+                        console.error('Erro ao atualizar quantidade no carrinho.'); // Log de erro no console
+                    }
+                });
+            });
+
+            function updateCartTotal() {
+                let grandTotal = 0;
+                $('.total-price').each(function() {
+                    let priceText = $(this).text().replace('R$ ', '').replace('.', '').replace(',', '.');
+                    grandTotal += parseFloat(priceText);
+                });
+                $('.grand-total').text('R$ ' + grandTotal.toFixed(2).replace('.', ','));
+            }
+        });
+    </script>
+
+
+
+
+
+    </body>
 </html>
