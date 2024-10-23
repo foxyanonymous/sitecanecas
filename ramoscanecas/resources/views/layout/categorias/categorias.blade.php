@@ -23,7 +23,7 @@
                 <ul class="list-unstyled fruite-categorie">
                     <div class="d-flex justify-content-between fruite-name">
                         <a href="{{ url('/todosprodutos') }}"><i class="fas fa-mug-hot me-2"></i>Todos</a>
-                        <span>({{ $produtos->count() }})</span>
+                        <span>({{ \App\Models\Produto::count() }})</span> <!-- Conta todos os produtos -->
                     </div>
                     @foreach($categorias as $cat) <!-- Loop através de todas as categorias -->
                         <li class="mb-3"> <!-- Margem inferior para espaçamento -->
