@@ -8,7 +8,6 @@ use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use App\Models\Venda;
-use App\Models\User;
 
 class CartController extends Controller
 {
@@ -16,7 +15,6 @@ class CartController extends Controller
     public function index()
     {
         $cart = session()->get('cart', []);
-
         return view('layout.carrinho', compact('cart'));
     }
 
@@ -27,9 +25,8 @@ class CartController extends Controller
         $total = 0; // Inicializa o total
 
         // Loop para processar cada item do carrinho
-        foreach ($cart as $id => $product) {
+        foreach ($cart as $product) {
             $total += $product['price'] * $product['quantity']; // Calcular o total
-            // Aqui você pode adicionar mais lógica, como verificar disponibilidade de estoque ou outras ações
         }
 
         return response()->json([
@@ -84,7 +81,7 @@ class CartController extends Controller
     // Atualizar quantidade do produto no carrinho
     public function updateCart(Request $request)
     {
-        $cart = session()->get('cart');
+        $cart = session()->get('cart', []);
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
 
@@ -125,7 +122,7 @@ class CartController extends Controller
             $items[] = [
                 'id' => $id,
                 'title' => $product['name'],
-                'description' => 'Descrição do produto',
+                'description' => 'Descrição do produto', // Melhorar a descrição se necessário
                 'quantity' => intval($product['quantity']),
                 'currency_id' => 'BRL',
                 'unit_price' => floatval($product['price']),
@@ -133,18 +130,16 @@ class CartController extends Controller
         }
 
         $payer = [
-            'name' => 'Cliente Teste',
+            'name' => 'Cliente Teste', // Melhorar com dados reais se disponíveis
             'surname' => 'Teste Sobrenome',
             'email' => 'email_teste@example.com',
         ];
 
         $request = $this->createPreferenceRequest($items, $payer);
-
         $client = new PreferenceClient();
 
         try {
             $preference = $client->create($request);
-
             $link = $preference->init_point;
 
             return redirect()->away($link);
@@ -223,5 +218,4 @@ class CartController extends Controller
         
         return view('layout.sucesso');
     }
-    
 }

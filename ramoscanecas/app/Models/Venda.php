@@ -9,11 +9,11 @@ class Venda extends Model
     protected $fillable = [
         'comprador_nome',
         'comprador_email',
-        'produto_id', // Se este campo for usado
-        'quantidade', // Se necessário
-        'preco_unitario', // Se necessário
-        'status', // Se necessário
-        'external_reference' // Se necessário
+        'produto_id', // Adicione a coluna aqui
+        'quantidade',
+        'preco_unitario',
+        'status',
+        'external_reference',
     ];
 
     // Relação com produtos
