@@ -10,8 +10,10 @@ class CreateVendaProdutoTable extends Migration
     {
         Schema::create('venda_produto', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('venda_id')->constrained()->onDelete('cascade'); // Relaciona com vendas
-            $table->foreignId('produto_id')->constrained()->onDelete('cascade'); // Relaciona com produtos
+            $table->foreignId('venda_id')->constrained()->onDelete('cascade'); // Chave estrangeira para a tabela venda
+            $table->foreignId('produto_id')->constrained()->onDelete('cascade'); // Chave estrangeira para a tabela produto
+            $table->integer('quantidade'); // Coluna para a quantidade
+            $table->decimal('preco', 10, 2); // Coluna para o preço unitário
             $table->timestamps();
         });
     }

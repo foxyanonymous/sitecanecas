@@ -74,6 +74,7 @@ Route::get('/mercadopago-falha', [CartController::class, 'falha'])->name('falha'
 Route::get('/painelvendas', [VendaController::class, 'index'])->name('vendas.index');
 
 
+
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/cadastrar', [AuthController::class, 'cadastrar'])->name('cadastrar.post');
 Route::post('/logout', function () {

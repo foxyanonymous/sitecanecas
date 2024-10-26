@@ -15,6 +15,8 @@ class CreateProdutosTable extends Migration
             $table->text('descricao'); // Descrição do produto
             $table->string('imagem')->nullable(); // Coluna para armazenar a imagem (pode ser nula)
             $table->foreignId('categoria_id')->constrained()->onDelete('cascade'); // Relacionamento com categoria
+            $table->foreignId('categoria_id')->constrained()->onDelete('relvenda'); // Relacionamento com categoria
+            $table->foreignId('produto_id')->constrained()->onDelete('relvenda'); // Relaciona com produtos
             $table->timestamps();
         });
     }
@@ -22,5 +24,7 @@ class CreateProdutosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('produtos');
+        Schema::dropIfExists('venda_produto');
     }
+
 }

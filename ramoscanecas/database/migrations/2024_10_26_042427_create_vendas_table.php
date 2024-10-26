@@ -12,12 +12,14 @@ class CreateVendasTable extends Migration
             $table->id();
             $table->string('comprador_nome');
             $table->string('comprador_email');
-            $table->foreignId('produto_id')->constrained()->onDelete('cascade'); // Relacionamento com produto
+            $table->foreignId('produto_id')->constrained()->onDelete('cascade'); // Chave estrangeira para produtos
             $table->integer('quantidade');
             $table->decimal('preco_unitario', 10, 2);
+            $table->string('status');
+            $table->string('external_reference')->nullable();
             $table->timestamps();
         });
-    }
+    }    
 
     public function down()
     {

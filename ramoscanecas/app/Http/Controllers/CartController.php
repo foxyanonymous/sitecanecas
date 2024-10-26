@@ -205,16 +205,23 @@ class CartController extends Controller
             $user = auth()->user(); // Pega o usuário autenticado
     
             // Salvar a venda no banco
-            Venda::create([
-                'comprador_nome' => $user->name, // Usa o nome real do usuário
-                'comprador_email' => $user->email, // Usa o e-mail real do usuário
-                'itens' => $cart,
-                'total' => $total,
-            ]);
+            foreach ($cart as $id => $item) {
+                Venda::create([
+                    'comprador_nome' => $user->name, // Usa o nome real do usuário
+                    'comprador_email' => $user->email, // Usa o e-mail real do usuário
+                    'produto_id' => $id, // Usar o ID do produto, que é a chave do item no carrinho
+                    'quantidade' => $item['quantity'], // A quantidade do produto
+                    'preco_unitario' => $item['price'], // O preço unitário do produto
+                    'status' => 'aprovado', // Defina o status da venda
+                    'external_reference' => uniqid(), // Se necessário, gere a referência externa
+                ]);
+            }
             
+            // Limpa o carrinho após o checkout
             session()->forget('cart');
         }
         
         return view('layout.sucesso');
     }
+    
 }
