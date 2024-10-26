@@ -66,7 +66,7 @@ Route::post('/carrinho/adicionar', [CartController::class, 'addToCart'])->name('
 Route::post('/carrinho/atualizar', [CartController::class, 'updateCart'])->name('atualizar.carrinho');
 Route::post('/carrinho/remover/{id}', [CartController::class, 'removeFromCart'])->name('remover.carrinho');
 
-Route::get('/mercadopago', [CartController::class, 'createPaymentPreference'])->name('mercadopago');
+Route::get('/mercadopago', [CartController::class, 'createPaymentPreference'])->name('mercadopago')->middleware('auth');
 Route::get('/mercadopago-sucesso', [CartController::class, 'sucesso'])->name('sucesso');
 Route::get('/mercadopago-falha', [CartController::class, 'falha'])->name('falha');
 
