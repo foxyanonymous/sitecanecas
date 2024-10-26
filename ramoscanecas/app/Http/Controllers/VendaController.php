@@ -13,10 +13,10 @@ class VendaController extends Controller
         if (!Auth::guard('admin')->check()) {
             return redirect('/loginadmin');
         }
-    
-        // Carregando as vendas com produtos
-        $vendas = Venda::with('produtos')->get(); // Use 'produtos' no plural
-    
+
+        // Carregar as vendas, incluindo o nome do comprador e detalhes do produto
+        $vendas = Venda::with('produto')->get(); // Aqui precisamos ter certeza de que a relação produto está definida no modelo Venda
+
         return view('layoutadmin.painelvendas', compact('vendas'));
     }
 }

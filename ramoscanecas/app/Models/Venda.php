@@ -2,24 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Venda extends Model
 {
-    protected $fillable = [
-        'comprador_nome',
-        'comprador_email',
-        'produto_id', // Adicione a coluna aqui
-        'quantidade',
-        'preco_unitario',
-        'status',
-        'external_reference',
-    ];
+    use HasFactory;
 
-    // Relação com produtos
-    public function produtos()
+    protected $fillable = ['comprador_nome', 'comprador_email', 'quantidade', 'preco_unitario', 'status', 'external_reference'];
+
+    // Relação com produto
+    public function produto()
     {
-        return $this->belongsToMany(Produto::class, 'venda_produto', 'venda_id', 'produto_id')
-                    ->withPivot('quantidade', 'preco'); // Assume que você precisa de quantidade e preço
+        return $this->belongsTo(Produto::class, 'produto_id'); // A coluna 'produto_id' deve existir na tabela vendas
     }
 }

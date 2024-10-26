@@ -16,11 +16,4 @@ class Produto extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
-
-    // Relação com as vendas
-    public function vendas()
-    {
-        return $this->hasMany(Venda::class);
-    }
-    
 }
