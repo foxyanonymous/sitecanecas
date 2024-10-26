@@ -18,8 +18,6 @@ class CreateVendasTable extends Migration
             $table->string('external_reference')->nullable();
             $table->timestamps();
 
-            // Adiciona a chave estrangeira
-            $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('cascade');
         });
     }
 
