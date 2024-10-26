@@ -10,6 +10,7 @@ use App\Models\Categoria;
 use App\Http\Controllers\PesquisarController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\VendaController;
 
 
 Route::get('/', function () {
@@ -69,6 +70,8 @@ Route::post('/carrinho/remover/{id}', [CartController::class, 'removeFromCart'])
 Route::get('/mercadopago', [CartController::class, 'createPaymentPreference'])->name('mercadopago')->middleware('auth');
 Route::get('/mercadopago-sucesso', [CartController::class, 'sucesso'])->name('sucesso');
 Route::get('/mercadopago-falha', [CartController::class, 'falha'])->name('falha');
+
+Route::get('/painelvendas', [VendaController::class, 'index'])->name('vendas.index');
 
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -133,6 +136,8 @@ Route::prefix('painelprodutos')->group(function () {
 
 // Rota dinâmica para exibir a categoria com seus produtos
 Route::get('/{caminho}', [CategoriaController::class, 'show']);
+
+
 
 
 

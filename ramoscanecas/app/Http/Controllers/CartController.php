@@ -7,6 +7,8 @@ use App\Models\Produto; // Importar o modelo Produto
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
+use App\Models\Venda;
+use App\Models\User;
 
 class CartController extends Controller
 {
@@ -192,11 +194,27 @@ class CartController extends Controller
 
     public function sucesso(Request $request)
     {
+        $cart = session()->get('cart', []);
+        
+        if (!empty($cart)) {
+            $total = array_reduce($cart, function ($carry, $item) {
+                return $carry + ($item['price'] * $item['quantity']);
+            }, 0);
+            
+            // Obtém o usuário autenticado
+            $user = auth()->user(); // Pega o usuário autenticado
+    
+            // Salvar a venda no banco
+            Venda::create([
+                'comprador_nome' => $user->name, // Usa o nome real do usuário
+                'comprador_email' => $user->email, // Usa o e-mail real do usuário
+                'itens' => $cart,
+                'total' => $total,
+            ]);
+            
+            session()->forget('cart');
+        }
+        
         return view('layout.sucesso');
-    }
-
-    public function falha(Request $request)
-    {
-        return view('layout.falha');
     }
 }
