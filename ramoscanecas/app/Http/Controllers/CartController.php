@@ -14,9 +14,8 @@ class CartController extends Controller
     public function index()
     {
         $cart = session()->get('cart', []);
-        $link = 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=APP_USR-6929085682425094-102318-14d8c636e314db0c436d215702d3f28e-2055353488';
 
-        return view('layout.carrinho', compact('cart', 'link'));
+        return view('layout.carrinho', compact('cart'));
     }
 
     // Método para processar os itens do carrinho
@@ -125,9 +124,9 @@ class CartController extends Controller
                 'id' => $id,
                 'title' => $product['name'],
                 'description' => 'Descrição do produto',
-                'quantity' => $product['quantity'],
+                'quantity' => intval($product['quantity']),
                 'currency_id' => 'BRL',
-                'unit_price' => $product['price'],
+                'unit_price' => floatval($product['price']),
             ];
         }
 
@@ -143,7 +142,6 @@ class CartController extends Controller
 
         try {
             $preference = $client->create($request);
-            \Log::info('Preferência criada com sucesso:', ['id' => $preference->id, 'init_point' => $preference->init_point]);
 
             $link = $preference->init_point;
 
@@ -164,8 +162,8 @@ class CartController extends Controller
         ];
 
         $backUrls = [
-            'success' => route('mercadopago.success'),
-            'failure' => route('mercadopago.failed'),
+            'success' => route('sucesso'),
+            'failure' => route('falha'),
         ];
 
         return [
@@ -192,13 +190,13 @@ class CartController extends Controller
         return redirect()->back()->with('error', 'Erro ao criar preferência de pagamento.');
     }
 
-    public function success(Request $request)
+    public function sucesso(Request $request)
     {
-        return view('layout.success');
+        return view('layout.sucesso');
     }
 
-    public function failed(Request $request)
+    public function falha(Request $request)
     {
-        return view('layout.failed');
+        return view('layout.falha');
     }
 }

@@ -92,7 +92,7 @@
                             <p class="mb-0 pe-4 grand-total">R$ {{ number_format($total, 2, ',', '.') }}</p>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <a href="{{ $link }}" class="btn azulescuroinicio rounded-pill px-4 py-3 text-white text-uppercase mb-4 ms-4">Prosseguir para o Checkout</a>
+                            <a href = "{{route('mercadopago')}}" class="btn azulescuroinicio rounded-pill px-4 py-3 text-white text-uppercase mb-4 ms-4">Prosseguir para o Checkout</a>
                         </div>
                     </div>
                 </div>
