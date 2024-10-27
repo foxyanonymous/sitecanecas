@@ -118,7 +118,7 @@
                                         </div>
                                         <a class="dropdown-item" href="/perfil">Meu perfil</a>
                                         
-                                        <a class="dropdown-item" href="/compras">Minhas compras</a>
+                                        <a class="dropdown-item" href="/minhascompras">Minhas compras</a>
                                         
                                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                             @csrf

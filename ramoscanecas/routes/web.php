@@ -73,6 +73,8 @@ Route::get('/mercadopago-falha', [CartController::class, 'falha'])->name('falha'
 
 Route::get('/painelvendas', [VendaController::class, 'index'])->name('vendas.index');
 
+Route::get('/minhascompras', [CartController::class, 'minhasCompras'])->name('minhascompras')->middleware('auth');
+
 
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');

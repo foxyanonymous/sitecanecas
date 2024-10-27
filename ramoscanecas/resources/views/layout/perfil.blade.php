@@ -1,44 +1,6 @@
 @extends('layout.index')
 
 @section('conteudo')
-    <style>
-        .mt-custom {
-            margin-top: 200px; /* Ajuste a margem superior */
-        }
-        .card {
-            border-radius: 15px; /* Arredondar bordas do card */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra para o card */
-        }
-        .card-body {
-            padding: 30px; /* Padding interno do card */
-        }
-        h1 {
-            font-size: 24px; /* Tamanho do título */
-            color: #333; /* Cor do título */
-        }
-        .form-label {
-            font-weight: bold; /* Negrito para rótulos dos campos */
-        }
-        .form-control {
-            border-radius: 10px; /* Bordas arredondadas para campos de entrada */
-            border: 1px solid #ced4da; /* Cor da borda */
-        }
-        .btn {
-            border-radius: 10px; /* Bordas arredondadas para botões */
-        }
-        .btn-success {
-            background-color: #28a745; /* Cor de fundo do botão de sucesso */
-            border: none; /* Remove borda do botão */
-        }
-        .btn-warning {
-            background-color: #ffc107; /* Cor de fundo do botão de voltar */
-            border: none; /* Remove borda do botão */
-        }
-        .btn:hover {
-            opacity: 0.9; /* Efeito ao passar o mouse sobre os botões */
-        }
-    </style>
-
     <div class="container mt-custom"> <!-- Aplicando a margem superior personalizada -->
         <div class="d-flex justify-content-center">
             <div class="card" style="width: 450px;"> <!-- Aumentando a largura do card -->
@@ -100,4 +62,43 @@
             </div>
         </div>
     </div>
+
+
+    <style>
+        .mt-custom {
+            margin-top: 200px; /* Ajuste a margem superior */
+        }
+        .card {
+            border-radius: 15px; /* Arredondar bordas do card */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra para o card */
+        }
+        .card-body {
+            padding: 30px; /* Padding interno do card */
+        }
+        h1 {
+            font-size: 24px; /* Tamanho do título */
+            color: #333; /* Cor do título */
+        }
+        .form-label {
+            font-weight: bold; /* Negrito para rótulos dos campos */
+        }
+        .form-control {
+            border-radius: 10px; /* Bordas arredondadas para campos de entrada */
+            border: 1px solid #ced4da; /* Cor da borda */
+        }
+        .btn {
+            border-radius: 10px; /* Bordas arredondadas para botões */
+        }
+        .btn-success {
+            background-color: #28a745; /* Cor de fundo do botão de sucesso */
+            border: none; /* Remove borda do botão */
+        }
+        .btn-warning {
+            background-color: #ffc107; /* Cor de fundo do botão de voltar */
+            border: none; /* Remove borda do botão */
+        }
+        .btn:hover {
+            opacity: 0.9; /* Efeito ao passar o mouse sobre os botões */
+        }
+    </style>
 @endsection

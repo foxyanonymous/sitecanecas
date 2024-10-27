@@ -218,4 +218,29 @@ class CartController extends Controller
         
         return view('layout.sucesso');
     }
+
+    public function minhasCompras()
+    {
+        $user = auth()->user();
+        
+        // Obtém as compras do usuário pelo email (ou outro identificador) no modelo Venda
+        $compras = Venda::where('comprador_email', $user->email)->get();
+
+        // Retorna a view com os dados das compras
+        return view('layout.minhascompras', compact('compras'));
+    }
+
+    public function falha(Request $request)
+    {
+        // Aqui você pode registrar a falha do pagamento em logs, se necessário
+        \Log::error('Pagamento falhou', [
+            'user_id' => auth()->user() ? auth()->user()->id : null,
+            'request' => $request->all(),
+        ]);
+
+        // Redireciona para a view de falha
+        return view('layout.falha'); // Certifique-se de que a view 'falha.blade.php' existe
+    }
+
+
 }
