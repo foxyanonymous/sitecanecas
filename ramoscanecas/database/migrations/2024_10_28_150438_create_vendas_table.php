@@ -17,7 +17,6 @@ class CreateVendasTable extends Migration
             $table->string('status');
             $table->string('external_reference')->nullable();
             $table->timestamps();
-
         });
     }
 
