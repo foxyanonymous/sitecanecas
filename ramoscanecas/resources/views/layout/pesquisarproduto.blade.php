@@ -4,7 +4,7 @@
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6">{{ isset($categoria) ? $categoria->nome : 'Todos os Produtos' }}</h1>
+    <h1 class="text-center text-white display-6">Resultados da Pesquisa</h1>
 </div>
 <!-- Single Page Header End -->
 
@@ -36,9 +36,9 @@
             <!-- Coluna para produtos -->
             <div class="col-xl-9">
                 <div class="row g-4">
-                    @if(isset($categoria))
-                        @foreach($categoria->produtos as $produto) <!-- Exibe apenas produtos da categoria selecionada -->
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4"> <!-- Ajuste de colunas para exibir 3 produtos por linha -->
+                    @if($produtos->count())
+                        @foreach($produtos as $produto)
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                 <div class="border border-secondary rounded position-relative fruite-item h-100 d-flex flex-column">
                                     <div class="fruite-img position-relative flex-grow-1">
                                         <img src="{{ asset($produto->imagem) }}" class="img-fluid w-100 rounded-top" alt="{{ $produto->nome }}">
@@ -66,7 +66,10 @@
                             </div>
                         @endforeach
                     @else
-                        <p>Nenhum produto encontrado para esta categoria.</p>
+                        <div class="col-12 text-center" style="margin-top: 100px;"> <!-- Ajuste o valor conforme necessário -->
+                            <p class="fs-2 fw-bold text-dark" style="opacity: 0.7;">Nenhum produto encontrado<br>para sua pesquisa.</p>
+                        </div>
+
                     @endif
                 </div>
             </div>

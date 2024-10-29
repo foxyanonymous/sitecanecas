@@ -67,6 +67,7 @@
             </div>
             <!-- Primeiro Fim -->
 
+            
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
                     <a href="/" class="navbar-brand"><img src="layout/img/logo.png" alt="Ramos Canecas" width="150" height="80"></a>
@@ -94,8 +95,17 @@
 
                             <a href="/contatos" class="nav-item nav-link {{ request()->is('contatos') ? 'active' : '' }}">Contatos</a>
                         </div>
-                        <div class="d-flex m-3 me-0">
-                            <button class="btn-search btn border topoazulescuro btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                        <div class="d-flex m-3 me-0 justify-content-center align-items-center">
+                            <!-- Pesquisa -->
+                            <form class="d-none d-md-inline-block form-inline me-4" method="GET" action="{{ route('pesquisar.produto') }}" onsubmit="return validarPesquisa()">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="palavra" id="palavra" placeholder="Pesquisar por..." aria-label="Pesquisar por..." />
+                                    <button class="btn" id="btnNavbarSearch" type="submit" style="background-color: #00ceff; border: none;">
+                                        <i class="fas fa-search" style="color: #053f74;"></i>
+                                    </button>
+                                </div>
+                            </form>
+
                             <a href="/carrinho" class="position-relative me-4 my-auto">
                                 <i class="fas fa-shopping-cart fa-2x"></i>
                                     <span class="shopping-cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
@@ -139,26 +149,6 @@
             </div>
         </div>
         <!-- Fim Topo -->
-
-
-        <!-- Pesquisa Inicio Topo -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pesquisar...</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Pesquisa Fim Topo -->
 
 
         <div class="content">
@@ -320,8 +310,15 @@
         });
     </script>
 
-
-
+    <script>
+    function validarPesquisa() {
+        const palavra = document.getElementById('palavra').value.trim();
+        if (palavra === "") {
+            return false; // Impede o envio do formulário
+        }
+        return true; // Permite o envio do formulário
+    }
+    </script>
 
 
     </body>

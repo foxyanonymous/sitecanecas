@@ -13,6 +13,9 @@
             <form class="login100-form validate-form" action="{{ route('admin.loginadmin.post') }}" method="POST">
                 @csrf
                 <div class="login100-form-title">
+                <a href="/" class="back-arrow">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
                     <img src="layout/img/logo.png" alt="Admin Logo" width="200" height="120" style="display: block; margin: 0 auto;">
                 </div>
                 <span class="login100-form-title">Painel de Login Admin</span>
@@ -41,3 +44,18 @@
     </div>
 </body>
 </html>
+
+    <style>
+        /* Estilo para a flecha de voltar */
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #333; /* Preto/cinza */
+            font-size: 24px;
+            text-decoration: none;
+        }
+        .back-arrow:hover {
+            color: #666; /* Cor um pouco mais clara ao passar o mouse */
+        }
+    </style>

@@ -15,10 +15,6 @@
             <!-- Coluna para categorias -->
             <div class="col-xl-3">
                 <h1 class="mb-4">Categorias</h1>
-                <div class="input-group w-100 mx-auto d-flex mb-4"> <!-- Margem inferior para espaçamento -->
-                    <input type="search" class="form-control p-3" placeholder="Pesquisar por..." aria-describedby="search-icon-1">
-                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                </div>
                 <!-- Exibe as categorias em formato de lista -->
                 <ul class="list-unstyled fruite-categorie">
                     <!-- Categoria manual para Todos Produtos -->

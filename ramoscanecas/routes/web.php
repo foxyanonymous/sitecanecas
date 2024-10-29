@@ -106,6 +106,10 @@ Route::middleware(['auth.admin'])->group(function () {
 });
 
 
+// PESQUISAR PRODUTO
+Route::get('/pesquisarproduto', [ProdutoController::class, 'pesquisar'])->name('pesquisar.produto');
+
+
 // PAINEL LOGIN ADMIN
 Route::get('/loginadmin', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/loginadmin', [AdminController::class, 'login'])->name('admin.loginadmin.post');

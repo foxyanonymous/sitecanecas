@@ -102,4 +102,22 @@ class ProdutoController extends Controller
 
         return redirect()->route('produtos.index')->with('success', 'Produto removido com sucesso!');
     }
+
+    public function pesquisar(Request $request)
+    {
+        $palavra = $request->input('palavra');
+    
+        if (!$palavra) {
+            return view('layout.pesquisarproduto')->with('mensagem', 'Digite uma palavra para pesquisar.');
+        }
+    
+        $request->validate([
+            'palavra' => 'required|string|max:255', // Validação da palavra-chave
+        ]);
+    
+        $produtos = Produto::where('nome', 'LIKE', '%' . $palavra . '%')->with('categoria')->get();
+    
+        return view('layout.pesquisarproduto', compact('produtos', 'palavra'));
+    }    
+
 }
