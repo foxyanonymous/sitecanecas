@@ -53,6 +53,7 @@ class CartController extends Controller
             $cart[$productId]['quantity'] += $quantity;
         } else {
             $cart[$productId] = [
+                'id' => $product->id,
                 'name' => $product->nome,
                 'price' => $product->preco,
                 'quantity' => $quantity,
@@ -198,13 +199,12 @@ class CartController extends Controller
             
             // Obtém o usuário autenticado
             $user = auth()->user(); // Pega o usuário autenticado
-    
             // Salvar a venda no banco
             foreach ($cart as $id => $item) {
                 Venda::create([
                     'comprador_nome' => $user->name, // Usa o nome real do usuário
                     'comprador_email' => $user->email, // Usa o e-mail real do usuário
-                    'produto_id' => $id, // Usar o ID do produto, que é a chave do item no carrinho
+                    'id_produto' => $item['id'], // Usar o ID do produto, que é a chave do item no carrinho
                     'quantidade' => $item['quantity'], // A quantidade do produto
                     'preco_unitario' => $item['price'], // O preço unitário do produto
                     'status' => 'aprovado', // Defina o status da venda

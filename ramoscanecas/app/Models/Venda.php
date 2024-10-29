@@ -9,11 +9,11 @@ class Venda extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['comprador_nome', 'comprador_email', 'quantidade', 'preco_unitario', 'status', 'external_reference'];
+    protected $fillable = ['id_produto','comprador_nome', 'comprador_email', 'quantidade', 'preco_unitario', 'status', 'external_reference'];
 
     // Relação com produto
     public function produto()
     {
-        return $this->belongsTo(Produto::class, 'produto_id'); // A coluna 'produto_id' deve existir na tabela vendas
+        return $this->belongsTo(Produto::class, 'id_produto'); // A coluna 'produto_id' deve existir na tabela vendas
     }
 }
