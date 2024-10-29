@@ -11,10 +11,6 @@ class ClienteController extends Controller
     // Exibir todos os clientes
     public function index()
     {
-        if (!Auth::guard('admin')->check()) {
-            return redirect('/loginadmin');
-        }
-
         $clientes = Cliente::all();
         return view('layoutadmin.clientes', compact('clientes'));
     }

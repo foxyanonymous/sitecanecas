@@ -12,9 +12,6 @@ class ProdutoController extends Controller
     // Exibe a lista de produtos
     public function index()
     {
-        if (!Auth::guard('admin')->check()) {
-            return redirect('/loginadmin');
-        }
 
         $produtos = Produto::with('categoria')->get(); // Recupera todos os produtos com categoria
         return view('layoutadmin.painelprodutos', compact('produtos'));

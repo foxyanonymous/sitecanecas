@@ -12,11 +12,6 @@ class CategoriaController extends Controller
     // Exibe a lista de categorias
     public function index()
     {
-        // Verifica se o usuário está autenticado como administrador
-        if (!Auth::guard('admin')->check()) {
-            return redirect('/loginadmin');
-        }
-
         // Obtém todas as categorias
         $categorias = Categoria::all();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash; // Importa Hash
 use App\Models\UserAdmin; // Model do administrador
 
 class AdminController extends Controller
@@ -34,11 +35,6 @@ class AdminController extends Controller
     // Exibir o painel administrativo
     public function index()
     {
-        // Se não estiver autenticado, redirecione para a página de login do admin
-        if (!Auth::guard('admin')->check()) {
-            return redirect('/loginadmin');
-        }
-
         // Obtenha os usuários administradores do banco de dados
         $users = UserAdmin::all(); // Ou use paginate() se preferir paginar os resultados
 
@@ -50,7 +46,7 @@ class AdminController extends Controller
         // Validação dos dados
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:usersadmin', // Ajuste para a tabela correta
+            'email' => 'required|string|email|max:255|unique:usersadmin',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -58,13 +54,11 @@ class AdminController extends Controller
         $user = new UserAdmin();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password')); // Certifique-se de que a tabela tem o campo 'password'
-        $user->save(); // Tente executar este método e veja se está retornando verdadeiro
+        $user->password = Hash::make($request->input('password')); // Usando Hash::make
+        $user->save();
 
         return redirect('/paineladmin')->with('success', 'Usuário criado com sucesso!');
     }
-
-    
 
     // Método para deletar usuário
     public function destroy($id)
@@ -85,6 +79,11 @@ class AdminController extends Controller
         $user = UserAdmin::find($id);
 
         if ($user) {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+            ]);
+
             $user->name = $request->input('name');
             $user->email = $request->input('email');
 
@@ -93,7 +92,7 @@ class AdminController extends Controller
                 $request->validate([
                     'password' => 'confirmed|min:6',
                 ]);
-                $user->password = bcrypt($request->input('password'));
+                $user->password = Hash::make($request->input('password'));
             }
 
             $user->save();
@@ -111,5 +110,4 @@ class AdminController extends Controller
         session()->regenerateToken(); // Gera um novo token de sessão
         return redirect('/'); // Redireciona para a página inicial
     }
-
 }

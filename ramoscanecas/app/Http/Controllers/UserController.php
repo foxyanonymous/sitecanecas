@@ -12,11 +12,6 @@ class UserController extends Controller
     // Exibir todos os usuários
     public function index()
     {
-        // Verifique se o admin está logado
-        if (!Auth::guard('admin')->check()) {
-            return redirect('/loginadmin');
-        }
-
         // Obtenha todos os usuários do banco de dados
         $users = User::all();
 
@@ -57,33 +52,35 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
-
+    
         $user = User::findOrFail($id);
-
+    
         // Verifique se o usuário atual é um administrador
         if (!Auth::guard('admin')->check()) {
             // Para usuários não administradores, verifique a senha atual
             $request->validate([
                 'current_password' => 'required|string',
             ]);
-
+    
             // Verifica se a senha atual está correta
             if (!Hash::check($request->current_password, $user->password)) {
                 return redirect()->back()->withErrors(['current_password' => 'A senha atual está incorreta.']);
             }
         }
-
+    
         // Atualize os dados do usuário
         $user->name = $request->name;
-
-        if ($request->password) {
+    
+        // Atualiza a senha apenas se fornecida
+        if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-
+    
         $user->save();
-
+    
         return redirect()->back()->with('success', 'Usuário atualizado com sucesso!');
     }
+    
 
 
     // Método para deletar um usuário
